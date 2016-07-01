@@ -51,6 +51,6 @@ class AccountDataProvider extends BaseDataProvider
      */
     protected function getSerializationContext()
     {
-        return parent::getSerializationContext()->setGroups(['fullAccount', 'partialContact']);
+        return parent::getSerializationContext()->setGroups(['fullAccount', 'partialContact', 'partialCategory']);
     }
 }
