@@ -357,7 +357,7 @@ class CategoryManager implements CategoryManagerInterface
      * Returns an API-Object for a given category-entity. The API-Object wraps the entity
      * and provides neat getters and setters.
      *
-     * @param Category $category
+     * @param CategoryEntity $category
      * @param string   $locale
      *
      * @return null|CategoryWrapper
@@ -374,7 +374,7 @@ class CategoryManager implements CategoryManagerInterface
     /**
      * Same as getApiObject, but takes multiple category-entities.
      *
-     * @param Category[] $categories
+     * @param CategoryEntity[] $categories
      * @param string     $locale
      *
      * @return CategoryWrapper[]
