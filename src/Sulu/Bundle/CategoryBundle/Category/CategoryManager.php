@@ -311,6 +311,27 @@ class CategoryManager implements CategoryManagerInterface
     /**
      * {@inheritdoc}
      */
+    public function move($id, $destinationId)
+    {
+        if (!$entity = $this->categoryRepository->findCategoryById($id)) {
+            throw new CategoryIdNotFoundException($id);
+        }
+
+        $destinationEntity = null;
+        if ($destinationId && !$destinationEntity = $this->categoryRepository->findCategoryById($destinationId)) {
+            throw new CategoryIdNotFoundException($destinationId);
+        }
+
+        $entity->setParent($destinationEntity);
+        $this->em->persist($entity);
+        $this->em->flush();
+
+        return $entity;
+    }
+
+    /**
+     * {@inheritdoc}
+     */
     public function save($data, $userId, $locale, $patch = false)
     {
         if ($this->getProperty($data, 'id')) {

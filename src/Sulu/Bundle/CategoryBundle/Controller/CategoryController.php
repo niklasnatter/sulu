@@ -12,6 +12,7 @@
 namespace Sulu\Bundle\CategoryBundle\Controller;
 
 use FOS\RestBundle\Controller\Annotations\Get;
+use FOS\RestBundle\Controller\Annotations\Post;
 use FOS\RestBundle\Routing\ClassResourceInterface;
 use Hateoas\Representation\CollectionRepresentation;
 use Sulu\Bundle\CategoryBundle\Category\CategoryListRepresentation;
@@ -19,6 +20,7 @@ use Sulu\Bundle\CategoryBundle\Entity\CategoryInterface;
 use Sulu\Bundle\CategoryBundle\Exception\CategoryIdNotFoundException;
 use Sulu\Bundle\CategoryBundle\Exception\CategoryKeyNotUniqueException;
 use Sulu\Component\Rest\Exception\MissingArgumentException;
+use Sulu\Component\Rest\Exception\RestException;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilder;
 use Sulu\Component\Rest\ListBuilder\Doctrine\DoctrineListBuilderFactory;
 use Sulu\Component\Rest\ListBuilder\ListBuilderInterface;
@@ -158,6 +160,37 @@ class CategoryController extends RestController implements ClassResourceInterfac
     public function postAction(Request $request)
     {
         return $this->saveCategory($request);
+    }
+
+    /**
+     * Trigger an action for given category-id. Action is specified over get-action parameter.
+     *
+     * @Post("categories/{id}")
+     *
+     * @param int $id
+     * @param Request $request
+     *
+     * @return \Symfony\Component\HttpFoundation\Response
+     *
+     * @throws RestException
+     */
+    public function postTriggerAction($id, Request $request)
+    {
+        $action = $this->getRequestParameter($request, 'action', true);
+
+        switch ($action) {
+            case 'move':
+                $locale = $this->getRequestParameter($request, 'locale', true);
+                $destinationId = $this->getRequestParameter($request, 'destination');
+                $entity = $this->getCategoryManager()->move($id, $destinationId, $locale);
+                $category = $this->getCategoryManager()->getApiObject($entity, $locale);
+                $view = $this->view($category);
+                break;
+            default:
+                throw new RestException(sprintf('Unrecognized action: "%s"', $action));
+            }
+
+            return $this->handleView($view);
     }
 
     /**

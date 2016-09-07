@@ -109,6 +109,17 @@ interface CategoryManagerInterface
     public function findChildrenByParentKey($parentKey = null);
 
     /**
+     * Sets the parent of the category which is assigned to the given id to the category which is assigned
+     * to the given destination-id and returns the moved version of the category.
+     *
+     * @param $id
+     * @param $destinationId
+     *
+     * @return CategoryInterface
+     */
+    public function move($id, $destinationId);
+
+    /**
      * Creates or updates the given data as category in the given locale and return the saved category.
      * If data.id is set, the category which is assigned to the given id is overwritten.
      * If patch is set, the category which is assigned to the given id is updated partially.

@@ -874,6 +874,80 @@ class CategoryControllerTest extends SuluTestCase
         $this->assertCount(2, $response->children);
     }
 
+    public function testMove()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'GET',
+            '/api/categories?locale=en'
+        );
+        $this->assertHttpStatusCode(200, $client->getResponse());
+        $response = json_decode($client->getResponse()->getContent());
+
+        $categories = $response->_embedded->categories;
+        usort($categories, function ($cat1, $cat2) {
+            return $cat1->id > $cat2->id;
+        });
+
+        $this->assertCount(1, $categories[0]->children[0]->children);
+        $this->assertCount(0, $categories[1]->children);
+        $this->assertEquals($this->category3->getId(), $categories[0]->children[0]->children[0]->parent);
+
+        $client->request(
+            'POST',
+            '/api/categories/' . $this->category4->getId() . '?locale=en&action=move&destination=' . $this->category2->getId()
+        );
+        $this->assertHttpStatusCode(200, $client->getResponse());
+
+        $client->request(
+            'GET',
+            '/api/categories?locale=en'
+        );
+        $this->assertHttpStatusCode(200, $client->getResponse());
+        $response = json_decode($client->getResponse()->getContent());
+
+        $categories = $response->_embedded->categories;
+        usort($categories, function ($cat1, $cat2) {
+            return $cat1->id > $cat2->id;
+        });
+
+        $this->assertCount(0, $categories[0]->children[0]->children);
+        $this->assertCount(1, $categories[1]->children);
+        $this->assertEquals($this->category2->getId(), $categories[1]->children[0]->parent);
+    }
+
+    public function testMoveNotExistingCategory()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'POST',
+            '/api/categories/101?locale=en&action=move&destination=' . $this->category2->getId()
+        );
+        $this->assertHttpStatusCode(404, $client->getResponse());
+    }
+
+    public function testMoveNotExistingDestination()
+    {
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'POST',
+            '/api/categories/' . $this->category4->getId() . '?locale=en&action=move&destination=101'
+        );
+        $this->assertHttpStatusCode(404, $client->getResponse());
+    }
+
+    public function testMoveInvalidDestination()
+    {
+        $this->markTestSkipped('this functionality is not implemented yet');
+
+        $client = $this->createAuthenticatedClient();
+        $client->request(
+            'POST',
+            '/api/categories/' . $this->category4->getId() . '?locale=en&action=move&destination=' . $this->category4->getId()
+        );
+        $this->assertHttpStatusCode(409, $client->getResponse());
+    }
+
     public function testPut()
     {
         $client = $this->createAuthenticatedClient();
