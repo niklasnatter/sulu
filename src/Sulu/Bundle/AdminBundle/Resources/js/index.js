@@ -80,7 +80,7 @@ import Form, {
 } from './views/Form';
 import {navigationRegistry} from './containers/Navigation';
 import {smartContentConfigStore} from './containers/SmartContent';
-import FormOverlayDatagrid from './views/FormOverlayDatagrid';
+import FormOverlayList from './views/FormOverlayList';
 
 // $FlowFixMe
 configure({enforceActions: 'observed'});
@@ -138,9 +138,9 @@ initializer.addUpdateConfigHook('sulu_admin', (config: Object, initialized: bool
 function registerViews() {
     viewRegistry.add('sulu_admin.form', Form);
     viewRegistry.add('sulu_admin.list', List);
+    viewRegistry.add('sulu_admin.form_overlay_list', FormOverlayList);
     viewRegistry.add('sulu_admin.resource_tabs', ResourceTabs);
     viewRegistry.add('sulu_admin.tabs', Tabs);
-    viewRegistry.add('sulu_admin.form_overlay_datagrid', FormOverlayDatagrid);
 }
 
 function registerListAdapters() {

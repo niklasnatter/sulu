@@ -32,7 +32,7 @@ class ListRouteBuilder implements ListRouteBuilderInterface
         return $this;
     }
 
-    public function setListkey(string $listKey): ListRouteBuilderInterface
+    public function setListKey(string $listKey): ListRouteBuilderInterface
     {
         $this->route->setOption('listKey', $listKey);
 
