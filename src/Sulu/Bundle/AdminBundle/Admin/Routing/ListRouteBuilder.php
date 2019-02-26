@@ -136,20 +136,6 @@ class ListRouteBuilder implements ListRouteBuilderInterface
         return $this;
     }
 
-    public function enableMoving(): ListRouteBuilderInterface
-    {
-        $this->route->setOption('movable', true);
-
-        return $this;
-    }
-
-    public function disableMoving(): ListRouteBuilderInterface
-    {
-        $this->route->setOption('movable', false);
-
-        return $this;
-    }
-
     public function addRouterAttributesToListStore(array $routerAttributesToListStore): ListRouteBuilderInterface
     {
         $oldRouterAttributesToListStore = $this->route->getOption('routerAttributesToListStore');
