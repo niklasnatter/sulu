@@ -93,6 +93,7 @@ test('Should pass correct props to List view', () => {
                 formKey: 'test-form-key',
                 addOverlayTitle: 'app.add_overlay_title',
                 editOverlayTitle: 'app.edit_overlay_title',
+                overlaySize: 'wide',
                 resourceKey: 'test-resource-key',
                 toolbarActions: ['sulu_admin.add'],
                 routerAttributesToListStore: {'0': 'category', 'id': 'parentId'},
@@ -178,6 +179,7 @@ test('Should open Overlay with correct props when List fires the item-add callba
             options: {
                 formKey: 'test-form-key',
                 addOverlayTitle: 'app.add_overlay_title',
+                overlaySize: 'wide',
             },
         },
     }: any);
@@ -193,7 +195,7 @@ test('Should open Overlay with correct props when List fires the item-add callba
         confirmLoading: false,
         confirmText: 'sulu_admin.save',
         open: true,
-        size: 'small',
+        size: 'wide',
         title: 'app.add_overlay_title',
     }));
 });

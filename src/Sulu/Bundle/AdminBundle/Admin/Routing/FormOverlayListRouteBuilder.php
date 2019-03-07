@@ -170,6 +170,13 @@ class FormOverlayListRouteBuilder implements FormOverlayListRouteBuilderInterfac
         return $this;
     }
 
+    public function setOverlaySize(string $overlaySize): FormOverlayListRouteBuilderInterface
+    {
+        $this->route->setOption('overlaySize', $overlaySize);
+
+        return $this;
+    }
+
     public function setParent(string $parent): FormOverlayListRouteBuilderInterface
     {
         $this->route->setParent($parent);
