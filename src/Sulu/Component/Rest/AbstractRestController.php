@@ -22,6 +22,7 @@ abstract class AbstractRestController
 {
     use ControllerTrait;
     use RestControllerTrait;
+    use GetUserTrait;
 
     /**
      * @var TokenStorageInterface|null
@@ -35,25 +36,5 @@ abstract class AbstractRestController
         $this->setViewHandler($viewHandler);
 
         $this->tokenStorage = $tokenStorage;
-    }
-
-    protected function getUser()
-    {
-        if (!$this->tokenStorage) {
-            throw new \LogicException('The TokenStorage property was not set via the constructor".');
-        }
-
-        $token = $this->tokenStorage->getToken();
-        if (null === $token) {
-            return null;
-        }
-
-        $user = $token->getUser();
-        if (!is_object($user)) {
-            // e.g. anonymous authentication
-            return null;
-        }
-
-        return $user;
     }
 }
