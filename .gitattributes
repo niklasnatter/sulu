@@ -23,3 +23,4 @@ UPGRADE.md export-ignore
 /tests export-ignore
 /templates export-ignore
 /index.js export-ignore
+test
