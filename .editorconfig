@@ -15,3 +15,4 @@ max_line_length = 120
 # markdown uses two trailing spaces for explicit line breaks
 [*.md]
 trim_trailing_whitespace = false
+sdaf
