@@ -47,7 +47,7 @@ class MediaSelection extends React.Component<FieldTypeProps<Value>> {
         const {value, dataPath} = this.props;
 
         if (value && isArrayLike(value)) {
-            log.warn(
+            log.error(
                 'The "MediaSelection" field with the path "' + dataPath + '" expects an object with an "ids" '
                 + 'property as value but received an array instead. Is it possible that your API returns an array of '
                 + 'ids or an array serialized objects?'

@@ -128,7 +128,7 @@ class SingleSelection extends React.Component<Props>
             }
         } else {
             if (value && typeof value === 'object') {
-                log.warn(
+                log.error(
                     'The "SingleSelection" field with the path "' + dataPath + '" expects an id as value but '
                     + 'received an object instead. Is it possible that your API returns a serialized object?'
                     + '\n\nThe Sulu form view expects that your API returns the data in the same format as it is sent '

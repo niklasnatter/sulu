@@ -201,7 +201,7 @@ class Selection extends React.Component<Props> {
         const {value, dataPath} = this.props;
 
         if (value && isArrayLike(value) && value.length > 0 && typeof value[0] === 'object') {
-            log.warn(
+            log.error(
                 'The "Selection" field with the path "' + dataPath + '" expects an array of ids as value but '
                 + 'received an array of objects instead. Is it possible that your API returns an array serialized '
                 + 'objects?'
