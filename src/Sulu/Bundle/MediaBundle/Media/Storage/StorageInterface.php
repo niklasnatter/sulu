@@ -22,7 +22,7 @@ interface StorageInterface
     public const TYPE_LOCAL = 'local';
 
     /**
-     * Save the document in a storage and give back the path to the document.
+     * Save the document in the storage and return storage options of the stored document.
      */
     public function save(string $tempPath, string $fileName, array $storageOptions = []): array;
 
@@ -42,6 +42,11 @@ interface StorageInterface
      * Returns the type for the given file.
      */
     public function getType(array $storageOptions): string;
+
+    /**
+     * Moves a file on the storage.
+     */
+    public function move(array $sourceStorageOptions, array $targetStorageOptions): void;
 
     /**
      * Removes the file from storage.
